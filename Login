@@ -1,0 +1,36 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
+
+    // Hardcoded credentials for demonstration
+    private static final String VALID_USER = "admin";
+    private static final String VALID_PASS = "password123";
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        // Set response content type
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        // Get username and password from request
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        // Check credentials
+        if (VALID_USER.equals(username) && VALID_PASS.equals(password)) {
+            out.println("<h2>Welcome, " + username + "!</h2>");
+        } else {
+            out.println("<h2>Login Failed!</h2>");
+            out.println("<p>Invalid username or password.</p>");
+            out.println("<a href='login.html'>Try Again</a>");
+        }
+
+        out.close();
+    }
+}
